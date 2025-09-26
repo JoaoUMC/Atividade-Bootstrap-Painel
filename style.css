@@ -1,4 +1,3 @@
-/* Compensa a navbar fixa */
 body {
   padding-top: 70px;
 }
@@ -14,7 +13,6 @@ body {
   object-fit: cover;
 }
 
-/* melhora foco do scrollspy */
 section[id] {
   scroll-margin-top: 80px;
 }

@@ -1,7 +1,5 @@
-// ========================= Configurações =========================
-const GOAL_COURSES = 10; // meta usada na progress bar
+const GOAL_COURSES = 10;
 
-// ========================= Utilidades =========================
 function showAlert(message, type = "success") {
   const container = document.getElementById("alertContainer");
   if (!container) return;
@@ -56,7 +54,6 @@ function updateProgressBar() {
   if (txt) txt.textContent = `${current} de ${GOAL_COURSES} cursos`;
 }
 
-// ========================= Paginação =========================
 let currentPage = 1;
 
 function renderPagination(totalItems, itemsPerPage) {
@@ -98,8 +95,7 @@ function paginate() {
 
   const perPage = Number(list.dataset.itemsPerPage) || 4;
   const all = Array.from(list.querySelectorAll(".course-item"));
-  const filtered = all.filter((el) => el.style.display !== "none"); // só os visíveis após filtro
-
+  const filtered = all.filter((el) => el.style.display !== "none");
   const total = filtered.length;
   const start = (currentPage - 1) * perPage;
   const end = start + perPage;
@@ -111,7 +107,6 @@ function paginate() {
   renderPagination(total, perPage);
 }
 
-// ========================= Filtro por categoria =========================
 function setupCategoryFilter() {
   const dropdown = document.getElementById("categoryDropdown");
   if (!dropdown) return;
@@ -123,12 +118,12 @@ function setupCategoryFilter() {
     dropdown.querySelectorAll(".dropdown-item").forEach((i) => i.classList.remove("active"));
     btn.classList.add("active");
 
-    const cat = btn.dataset.category; // 'all' ou nome
+    const cat = btn.dataset.category;
     const items = document.querySelectorAll("#coursesList .course-item");
     items.forEach((el) => {
       const elCat = el.dataset.category;
       el.style.display = cat === "all" || elCat === cat ? "" : "none";
-      el.classList.remove("d-none"); // reseta visual para a paginação controlar depois
+      el.classList.remove("d-none");
     });
 
     currentPage = 1;
@@ -136,7 +131,6 @@ function setupCategoryFilter() {
   });
 }
 
-// ========================= Interações salvar/excluir =========================
 function setupSaveDelete() {
   const list = document.getElementById("coursesList");
   if (!list) return;
@@ -164,9 +158,7 @@ function setupSaveDelete() {
   });
 }
 
-// ========================= Formulário (validação + criação de card) =========================
 function setupForm() {
-  // Range
   const rangeInput = document.getElementById("range4");
   const rangeOutput = document.getElementById("rangeValue");
   if (rangeInput && rangeOutput) {
@@ -176,7 +168,6 @@ function setupForm() {
     });
   }
 
-  // Validação BS
   Array.from(document.querySelectorAll(".needs-validation")).forEach((form) => {
     form.addEventListener(
       "submit",
@@ -191,7 +182,6 @@ function setupForm() {
     );
   });
 
-  // Submit para adicionar curso
   const form = document.getElementById("newCourseForm");
   if (!form) return;
 
@@ -272,11 +262,9 @@ function addCourseCard({ title, category, description }) {
   paginate();
 }
 
-// ========================= Init =========================
 document.addEventListener("DOMContentLoaded", () => {
   initPopovers();
 
-  // Reativa/instancia Scrollspy caso necessário
   bootstrap.ScrollSpy.getInstance(document.body) ||
     new bootstrap.ScrollSpy(document.body, { target: "#navbarSpy", offset: 80 });
 
